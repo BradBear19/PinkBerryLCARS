@@ -1,7 +1,9 @@
 # PinkBerryLCARS
-New Github for revised Pinkberry team for LCARS assignment.
+New Github for the revised Pinkberry team for LCARS assignment.
 
-This readme.txt will act as an intial installation guide to obtain the intial build of the LCARS demo and execution.
+This project will deliver an LCARS-style interface layered over existing desktop systems. It will display files, drives, and additional features in a colorful, Star Trek–style, user-friendly package.
+
+This readme.txt will act as an installation guide to obtain the initial build of the LCARS demo and guide the user through execution.
 
 ## Requirements And Installation
 
