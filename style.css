@@ -1,0 +1,241 @@
+@font-face {
+  font-family: 'LCARS';
+  src: url('/styleAssets/Helvetica Ultra Compressed.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+html {
+    height: 97%;
+    width: 98%
+}
+
+body {
+    background: #111;
+    color: rgb(231, 96, 186);
+    font-family: 'LCARS';
+    margin: 20px;
+    image-rendering: smooth;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 0;
+    text-shadow: 2px 2px 0 #000;
+    font-family: 'LCARS';
+}
+
+p {
+    font-size: 3em;
+    top: 0;
+}
+
+button {
+    background: #222;
+    color: rgb(231, 96, 186);
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+button:disabled {
+    opacity: 0;
+    cursor: not-allowed;
+}
+
+button:hover {
+    background: rgb(231, 96, 186);
+    color: #000;
+}
+
+.topSection {
+    height: 25%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.topLeftSec{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.tLTButton, .tLBButton {
+    flex: 1;
+    border: 4px solid rgb(231, 96, 186);
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.tLTButton {
+    border-radius: 50px 50px 0 0; /* No radius for top button */
+    margin-bottom: 10px;
+}
+
+.tLBButton {
+    border-radius: 0 0 0 50px; /* Keep your original */
+}
+
+.topRightSec{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainSec{
+    height: 90%;
+    position: relative;
+}
+
+.sysInfo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+}
+
+/* Shared container behavior */
+.topBarSec,
+.botBarSec {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0;
+    box-sizing: border-box;
+}
+
+/* Top bars sit at the BOTTOM of their section */
+.topBarSec {
+    align-items: flex-end; /* push bars down */
+    height: 40px; /* adjust as needed */
+}
+
+/* Bottom bars sit at the TOP of their section */
+.botBarSec {
+    align-items: flex-start; /* push bars up */
+    height: 40px; /* match topBarSec for visual symmetry */
+}
+
+/* Bar base styling */
+.b1T, .b2T, .b3T, .b4T,
+.b1B, .b2B, .b3B, .b4B {
+    flex: 1;
+}
+
+/* Top and bottom bar color + height definitions */
+.b1T, .b1B { background-color: rgb(231, 96, 186); height: 40px; }
+.b2T, .b2B { background-color: rgb(231, 146, 96); height: 25px; }
+.b3T, .b3B { background-color: rgb(96, 166, 231); height: 10px; }
+.b4T, .b4B { background-color: rgb(214, 79, 231); height: 15px; }
+
+.roundingTCube {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    width: 60px;
+    height: 60px;
+    background: rgb(231, 96, 186);
+}
+
+/* Black curved overlay */
+.roundingTCube1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background: #111;
+    border-radius: 0 0 0 49px;
+}
+
+
+.bottomSection {
+    height: 75%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.botLeftSection {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bLButton1, .bLButton2, .bLButton3 {
+    flex: 1; /* Each button takes equal space */
+    border: 4px solid rgb(231, 96, 186);
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.bLButton1 {
+    border-radius: 50px 0 0 0; /* Keep your original */
+    margin-bottom: 10px;
+}
+
+.bLButton2 {
+    margin-bottom: 10px;
+}
+
+.bLButton3 {
+    border-radius: 0 0 50px 50px; /* Keep your original */
+}
+
+/* Make sure the lower right area positions its children locally */
+.botRightSection {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* important: anchors the cubes */
+}
+
+/* Pink base cube on bottom */
+.roundingBCube {
+    position: absolute;
+    top: 0;              /* top edge of bottom section */
+    left: 0;             /* flush with left edge of right box */
+    width: 60px;
+    height: 60px;
+    background: rgb(231, 96, 186);
+}
+
+/* Black overlay cube for LCARS-style curve */
+.roundingBCube1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background: #111;
+    border-radius: 49px 0 0 0; /* mirrors top shape */
+}
+
+.dynamicSec {
+    height: 100%;
+    position: relative;
+}
+
