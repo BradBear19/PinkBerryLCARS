@@ -36,7 +36,7 @@ This readme.txt will act as an installation guide to obtain the initial build of
 1. Retrieve contents of the Github Main branch via preferred choice.
 2. Navigate to the location of the LCARS folder.
 3. Drag all contents retrieved from Github into the LCARS folder.
-4. A file conflict will appear for main.js
+4. A file conflict will appear for package.json
 5. Resolve by choosing to replace current file contents.
 6. Total LCARS file will now contain all of Github intBuild contents as well as node.resources folder.
 
