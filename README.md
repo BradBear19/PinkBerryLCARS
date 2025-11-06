@@ -22,9 +22,8 @@ This readme.txt will act as an installation guide to obtain the initial build of
 -'mkdir PBLcars && cd PBLcars'  
 -'npm init'
 4. Directly after executing 'npm init' a series of options will appear for you to edit.
-5. Change the entry point to 'main.js' instead of 'index.js'.
-6. Keep all other options default.
-7. You should now have a file in your created folder named 'package.json'
+5. Keep all other options default.
+6. You should now have a file in your created folder named 'package.json'
 
 > Electron
 1. Navigate to the previously created folder that holds 'package.json'.
@@ -36,12 +35,12 @@ This readme.txt will act as an installation guide to obtain the initial build of
 1. Retrieve contents of the Github Main branch via preferred choice.
 2. Navigate to the location of the LCARS folder.
 3. Drag all contents retrieved from Github into the LCARS folder.
-4. A file conflict will appear for package.json
-5. Resolve by choosing to replace current file contents.
-6. Total LCARS file will now contain all of Github intBuild contents as well as node.resources folder.
+4. A file conflict will appear for 'package.json'.
+5. Resolve by choosing to replace the current file contents.
+6. Total LCARS file will now contain all of Github intBuild contents as well as node_modules folder.
 
 ### Execution
-1. Open command prompt and navigate to location of LCARS file so that you are able to see all file contents.
+1. Open command prompt and navigate to the location of LCARS file so that you are able to see all file contents.
 2. run command 'npm start'
 3. Terminal should run for 2-3 seconds, then a secondary pop-up window should appear containing LCARS application.
  
