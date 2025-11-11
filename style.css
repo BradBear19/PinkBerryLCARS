@@ -5,39 +5,23 @@
   font-style: normal;
 }
 
-
 html {
-    height: 97%;
-    width: 98%
+    height:100%;
 }
 
 body {
     background: #111;
     color: rgb(231, 96, 186);
     font-family: 'LCARS';
-    margin: 20px;
-    image-rendering: smooth;
     height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
-}
-
-h1 {
-    font-size: 4em;
     margin: 0;
-    text-shadow: 2px 2px 0 #000;
-    font-family: 'LCARS';
-}
-
-p {
-    font-size: 3em;
-    top: 0;
 }
 
 button {
-    background: #222;
-    color: rgb(231, 96, 186);
+    color: #222;
+    background: rgb(231, 96, 186);
     font-family: 'Press Start 2P', cursive;
     cursor: pointer;
     transition: all 0.1s ease;
@@ -49,18 +33,16 @@ button:disabled {
 }
 
 button:hover {
-    background: rgb(231, 96, 186);
-    color: #000;
+    color: rgb(231, 96, 186);
+    background: #000;
 }
 
 .topSection {
     height: 25%;
     width: 100%;
-    box-sizing: border-box;
-    position: relative;
     display: flex;
     flex-direction: row;
-    margin-bottom: 5px;
+    padding-bottom: 6px;
 }
 
 .topLeftSec{
@@ -76,14 +58,13 @@ button:hover {
     border: 4px solid rgb(231, 96, 186);
     font-size: 0.7rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: end;
+    justify-content: end;
+    text-align: end;
 }
 
 .tLTButton {
-    border-radius: 50px 50px 0 0; /* No radius for top button */
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .tLBButton {
@@ -98,15 +79,16 @@ button:hover {
 }
 
 .mainSec{
-    height: 90%;
+    height: 85%;
     position: relative;
 }
 
 .sysInfo {
+    width: 40%;
+    height: 50%;
     position: absolute;
     top: 0;
     right: 0;
-    text-align: right;
 }
 
 /* Shared container behavior */
@@ -123,13 +105,13 @@ button:hover {
 /* Top bars sit at the BOTTOM of their section */
 .topBarSec {
     align-items: flex-end; /* push bars down */
-    height: 40px; /* adjust as needed */
+    height: 15%; /* adjust as needed */
 }
 
 /* Bottom bars sit at the TOP of their section */
 .botBarSec {
     align-items: flex-start; /* push bars up */
-    height: 40px; /* match topBarSec for visual symmetry */
+    height: 15%; /* match topBarSec for visual symmetry */
 }
 
 /* Bar base styling */
@@ -139,17 +121,17 @@ button:hover {
 }
 
 /* Top and bottom bar color + height definitions */
-.b1T, .b1B { background-color: rgb(231, 96, 186); height: 40px; }
-.b2T, .b2B { background-color: rgb(231, 146, 96); height: 25px; }
-.b3T, .b3B { background-color: rgb(96, 166, 231); height: 10px; }
-.b4T, .b4B { background-color: rgb(214, 79, 231); height: 15px; }
+.b1T, .b1B { background-color: rgb(231, 96, 186); height: 100%;}
+.b2T, .b2B { background-color: rgb(231, 146, 96); height: 70%; }
+.b3T, .b3B { background-color: rgb(96, 166, 231); height: 25%; }
+.b4T, .b4B { background-color: rgb(214, 79, 231); height: 35%; }
 
 .roundingTCube {
     position: absolute;
     bottom: 0;
     left: 0; 
-    width: 60px;
-    height: 60px;
+    width: 25%;
+    height: 48%;
     background: rgb(231, 96, 186);
 }
 
@@ -158,8 +140,8 @@ button:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 60px;
-    height: 60px;
+    width: 25%;
+    height: 48%;
     background: #111;
     border-radius: 0 0 0 49px;
 }
@@ -168,8 +150,6 @@ button:hover {
 .bottomSection {
     height: 75%;
     width: 100%;
-    box-sizing: border-box;
-    position: relative;
     display: flex;
     flex-direction: row;
 }
@@ -182,26 +162,22 @@ button:hover {
 }
 
 .bLButton1, .bLButton2, .bLButton3 {
-    flex: 1; /* Each button takes equal space */
+    flex: 1;
     border: 4px solid rgb(231, 96, 186);
     font-size: 0.7rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: end;
+    justify-content: end;
+    text-align: end;
 }
 
-.bLButton1 {
+.bLButton1{
     border-radius: 50px 0 0 0; /* Keep your original */
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
-.bLButton2 {
-    margin-bottom: 10px;
-}
-
-.bLButton3 {
-    border-radius: 0 0 50px 50px; /* Keep your original */
+.bLButton2{
+    margin-bottom: 6px;
 }
 
 /* Make sure the lower right area positions its children locally */
@@ -210,7 +186,7 @@ button:hover {
     height: 100%;
     display: flex;
     flex-direction: column;
-    position: relative; /* important: anchors the cubes */
+    
 }
 
 /* Pink base cube on bottom */
@@ -218,8 +194,8 @@ button:hover {
     position: absolute;
     top: 0;              /* top edge of bottom section */
     left: 0;             /* flush with left edge of right box */
-    width: 60px;
-    height: 60px;
+    width: 25%;
+    height: 12.5%;
     background: rgb(231, 96, 186);
 }
 
@@ -228,8 +204,8 @@ button:hover {
     position: absolute;
     top: 0;
     left: 0;
-    width: 60px;
-    height: 60px;
+    width: 25%;
+    height: 12.5%;
     background: #111;
     border-radius: 49px 0 0 0; /* mirrors top shape */
 }
