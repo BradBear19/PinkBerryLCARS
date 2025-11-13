@@ -4,7 +4,8 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen: true,
+    fullscreen: false,
+    frame: true, //toggle for dev tool bar
 
     webPreferences: {
     nodeIntegration: true,
@@ -12,7 +13,7 @@ const createWindow = () => {
   }
   })
 
-  win.setMenuBarVisibility(false)
+  win.setMenuBarVisibility(true)
 
   win.loadFile('index.html')
 }

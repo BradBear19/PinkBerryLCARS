@@ -26,6 +26,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const dd = String(now.getDate()).padStart(2, '0');
     const yyyy = now.getFullYear();
     const formattedDate = `${mm}${dd}${yyyy}`;
-    sysStatusEl.textContent = `[${formattedDate}]`;
+    sysStatusEl.textContent = `${formattedDate}`;
   }
 });
+
+const updateOnlineStatus = () => {
+  document.getElementById('status').innerHTML = navigator.onLine ? 'online' : 'offline'
+}
+
+function updateTime() {
+const now = new Date();
+const timeString = now.toLocaleTimeString(); // Formats time based on locale
+document.getElementById("time").innerText = timeString;
+}
+
+window.addEventListener('online', updateOnlineStatus)
+window.addEventListener('offline', updateOnlineStatus)
+
+// Initialize the time immediately
+updateTime();
+updateOnlineStatus()
+
+// Update the time every second
+setInterval(updateTime, 1000);
