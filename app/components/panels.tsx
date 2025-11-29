@@ -43,7 +43,19 @@ type diskPlatform = {
   diskSpace: diskSpace;
 }
 
-import { setDefaultAutoSelectFamily } from "net";
+type fileHandler = {
+  name: string;
+  type: string;
+  path: string;
+  children: subDirectory[];
+}
+
+type subDirectory = {
+  name: string;
+  type: string;
+  path: string;
+}
+
 import { useState, useEffect } from "react";
 
 export const AboutSystemPanel = () => {
@@ -96,16 +108,26 @@ export const AboutSystemPanel = () => {
 };
 
 
-export const FileSystemPanel = () => (
-  <div className="panel fade-in">
-    <h1>File System</h1>
-    <p>Dynamic file system content goes here.</p>
-  </div>
-);
+export const FileSystemPanel = () => {
+  const [currentLoc, setCurrentLoc] = useState<fileHandler | null>(null);
+
+  useEffect(() => {
+    fetch("/api/fileAPI") // adjust query or endpoint as needed
+      .then((res) => res.json())
+      .then((data) => setCurrentLoc(data))
+      .catch((err) => console.error("Failed to fetch system info:", err));
+    }, []);
+
+    return(
+    <div className="panel fade-in">
+      <h1>File System</h1>
+      <p>Dynamic file system content goes here.</p>
+    </div>);
+};
 
 export const HomePanel = () => (
   <div className="panel fade-in">
-    <h1>HomeScreen</h1>
+    <h1>Home Screen</h1>
   </div>
 );
 
