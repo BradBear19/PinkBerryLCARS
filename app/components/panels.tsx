@@ -191,7 +191,6 @@ export const AboutSystemPanel = () => {
 };
 
 
-
 export const FileSystemPanel = ({
   currentPath,
   setCurrentPath,
@@ -202,11 +201,85 @@ export const FileSystemPanel = ({
   setCurrentPanel: (panel: string) => void;
 }) => {
   const [currentLoc, setCurrentLoc] = useState<fileHandler | null>(null);
-}
 
+  const fetchFiles = (pathToFetch: string) => {
+    fetch(`/api/fileAPI?targetDir=${encodeURIComponent(pathToFetch)}`)
+      .then(res => res.json())
+      .then(data => setCurrentLoc(data))
+      .catch(err => console.error("Failed to fetch file info:", err));
+  };
 
+  useEffect(() => {
+    fetchFiles(currentPath);
+  }, [currentPath]);
 
+  const handleFolderClick = (item: subDirectory) => {
+    if (item.type === "Directory") {
+      setCurrentPath(item.path);
+    }
+  };
 
+  const handleFileClick = (item: subDirectory) => {
+    if (item.type !== "Directory") {
+      fetch(`/api/openFile?path=${encodeURIComponent(item.path)}`);
+  }
+  };
+
+  let parent = currentPath.split("\\").slice(0, -1).join("\\");
+
+  // If the result is just a drive letter, add the backslash
+  if (/^[A-Z]:$/i.test(parent)) {
+    parent += "\\";
+  }
+
+  
+  return (
+    <div>
+      <h2>Current Directory: {currentPath}</h2>
+
+      <button
+        onClick={() => {
+          const isDriveRoot = /^[A-Z]:\\$/i.test(currentPath);
+
+          if (isDriveRoot) {
+            setCurrentPanel("driveSelection");
+          } else {
+            setCurrentPath(parent);
+          }
+
+          playBeep();
+        }}
+      >
+        Up One Folder
+      </button>
+
+      <div style={{ display: "flex", flexWrap: "wrap", marginTop: "10px" }}>
+        <div className="fileSysBox">
+          {currentLoc?.children.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                border: "1px solid #ccc",
+                padding: "8px",
+                margin: "4px",
+                width: "150px",
+                cursor: "pointer"
+              }}
+              onClick={() =>
+                item.type === "Directory"
+                  ? handleFolderClick(item)
+                  : handleFileClick(item)
+              }
+            >
+              <strong>{item.name}</strong>
+              <p>{item.type}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Adolfo - Settings
 
