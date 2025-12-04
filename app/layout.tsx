@@ -53,22 +53,22 @@ export default function LCARSLayout({ children }: LayoutProps) {
         {/* Bottom Section */}
         <div className="bottomSection">
           <div className="botLeftSection">
-            <button className="bLButton1" onClick={() => fetch("/api/openSettings")}>Settings</button>
+            <button className="bLButton1" onClick={() => {fetch("/api/openSettings"); playBeep();}}>Settings</button>
             <button
               className="bLButton2"
-              onClick={() => setCurrentPanel("diskSystem")}
+              onClick={() => {setCurrentPanel("diskSystem"); playBeep();}}
             >
               Disk Specs
             </button>
             <button
               className="bLButton2"
-              onClick={() => setCurrentPanel("aboutSystem")}
+              onClick={() => {setCurrentPanel("aboutSystem"); playBeep();}}
             >
               System Specs
             </button>
             <button
               className="bLButton3"
-              onClick={() => setCurrentPanel("driveSelection")}
+              onClick={() => {setCurrentPanel("driveSelection"); playBeep();}}
             >
               File System
             </button>

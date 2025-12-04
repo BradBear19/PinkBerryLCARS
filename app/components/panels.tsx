@@ -1,6 +1,4 @@
 "use client"; // required if using Next.js app directory
-import { useState, useEffect } from "react";
-import path from "path";
 
 type networkInfo = {
   iface: string;
@@ -65,6 +63,11 @@ type phsyicalDrive = {
   Used: number;
 }
 
+import Image from "next/image";
+
+import { setDefaultAutoSelectFamily } from "net";
+import { useState, useEffect } from "react";
+import { playBeep } from "./audioRender";
 
 export const HomePanel = () => (
   <div className="panel fade-in">
@@ -94,22 +97,34 @@ export const DiskPanel = () => {
     <div>
       {diskPlatform && diskPlatform.length > 0 ? (
         <div>
-          <h2>Drive Selection Screen</h2>
+        <h2>Drive Selection Screen</h2>
           <p>Available Drives:</p>
-
+        <div className="info-columns-container">
           {diskPlatform.map((drive, index) => (
+            <div className="info-column-syst">
+             <div className="dropdown">
+            <button className="dropbtn" onClick={() => playBeep()}> Drive Information</button>
+             <div className="dropdown-content">
             <div key={index}>
               <p><strong>Drive Name:</strong> {drive.Name}</p>
               <p><strong>Drive Root:</strong> {drive.Root}</p>
               <p><strong>Free Space (GB):</strong> {(drive.Free / (1024 ** 3)).toFixed(2)}</p>
               <p><strong>Used Space (GB):</strong> {(drive.Used / (1024 ** 3)).toFixed(2)}</p>
             </div>
+            </div>
+             </div>
+             </div>
           ))}
+          </div>
+         
+          
+        
         </div>
     ) : (
       <p>Obtaining Drive Information...</p>
     )}
   </div>
+
   );
 };
 
@@ -132,7 +147,7 @@ export const AboutSystemPanel = () => {
         <div className="info-columns-container">
           <div className="info-column-syst">
             <div className="dropdown">
-            <button className="dropbtn"> System Information</button>
+            <button className="dropbtn" onClick={() => playBeep()}> System Information</button>
             <div className="dropdown-content">
             <p>Platform: {systemPlatform.platform}</p>
             <p>Architecture: {systemPlatform.arch}</p>
@@ -145,7 +160,7 @@ export const AboutSystemPanel = () => {
 
           <div className="info-column">
             <div className="dropdown">
-              <button className="dropbtn">Wi-Fi Information</button>
+              <button className="dropbtn" onClick={() => playBeep()}>Wi-Fi Information</button>
                 <div className="dropdown-content">
             <p>Interface: {systemPlatform.networkInfo.iface}</p>
             <p>IP Address: {systemPlatform.networkInfo.address}</p>
@@ -158,7 +173,7 @@ export const AboutSystemPanel = () => {
 
           <div className="info-column">
             <div className="dropdown">
-              <button className="dropbtn">CPU Information</button>
+              <button className="dropbtn" onClick={() => playBeep()}>CPU Information</button>
                 <div className="dropdown-content">
                 <p>Processor Type: {systemPlatform.cpuInfo.Name} MHz</p>
                 <p>Core Count: {systemPlatform.cpuInfo.NumberOfCores} MHz</p>
