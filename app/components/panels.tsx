@@ -44,7 +44,10 @@ type diskPlatform = {
 }
 
 import { setDefaultAutoSelectFamily } from "net";
+import { exit } from "process";
 import { useState, useEffect } from "react";
+import { cursorTo } from "readline";
+import { CpuChart } from "./cpuChart";
 
 export const AboutSystemPanel = () => {
   const [systemPlatform, setSystemPlatform] = useState<systemPlatform | null>(null);
@@ -106,6 +109,65 @@ export const FileSystemPanel = () => (
 export const HomePanel = () => (
   <div className="panel fade-in">
     <h1>HomeScreen</h1>
+  </div>
+);
+
+
+// Adolfo - Settings Panel
+
+function exitPrompt() {
+  let exit = confirm("Are you sure you want to exit?");
+  if(exit)
+    window.close();
+}
+
+
+export const SettingsPanel = () => (
+  <div className="panel fade-in">
+    <h1>Settings Panel</h1>
+
+    {/* Container for top two divs, two columns */}
+      <div className="settingsPanelContainer">
+
+        {/* Top left div, settings */}
+        <div className="box settingsBox">
+          <h2>Settings</h2>
+          <p>Volume slider, brightness slider, theme selection</p>
+
+          {/* Indicates current settings values */}
+          <div className="settingsIndicator">
+            
+          </div>
+        </div>
+
+        {/* Top right div, CLI settings */}
+        <div className="box cliBox">
+          <h2>PowerShell CLI</h2>
+          <img src="/terminal.gif" alt="Terminal"></img>
+        </div>
+      </div>
+
+      {/* Bottom div, long bar with system info graphs */}
+      <div className="box infoBox">
+        <h2>System Data</h2>
+        <div className="infoContainer">
+
+          {/* Container for chart.js graph showing CPU usage! */}
+          <div className="cpuGraph">
+            <CpuChart />
+          </div>
+
+          {/* Container for chart.js graph showing what's on the disk! */}
+          <div className="diskGraph"></div>
+
+          {/* Container for quick action buttons */}
+          <div className="options">
+            <button className="Console Log">Log to Console</button>
+            <button className="reloadButton" onClick={() => window.location.reload()}>Reload</button> 
+            <button className="quitButton" onClick={exitPrompt}>Quit</button>
+          </div>
+        </div>
+    </div>
   </div>
 );
 

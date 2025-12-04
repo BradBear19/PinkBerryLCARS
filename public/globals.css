@@ -246,7 +246,7 @@ button:hover {
 
 /* Black overlay cube for LCARS-style curve */
 .roundingBCube1 {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     width: 25%;
@@ -259,19 +259,44 @@ button:hover {
 .dynamicSec {
     height: 100%;
     position: relative;
+    overflow: scroll;
 }
 
 .specialDynamic {
     position: absolute;
     top: 0;
     left: 20px;
-    width: 25%;
     height: 12.5%;
     z-index: 3;
 }
 
+/* Adolfo - System Settings Styling */
+
+.settingsPanelContainer {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.box {
+    margin: 10px;
+    border: 4px solid rgb(231, 200, 96);
+    border-radius: 4px;
+    flex: 1;
+}
+
+.cliBox img {
+    width: 100%;
+}
+
+.infoContainer {
+    display: flex;
+    gap: 10px;
+}
+
 .fade-in {
-  animation: fadein 1s ease-out;
+  animation: fadein 0.4s ease-out;
 }
 
 @keyframes fadein {

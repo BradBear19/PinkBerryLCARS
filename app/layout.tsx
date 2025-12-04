@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ReactNode, useEffect } from "react";
-import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel } from "./components/panels";
+import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel, SettingsPanel } from "./components/panels";
 import { playBeep } from "./components/audioRender";
 import LCARSInfoPanel from "./components/infoRender";
 
@@ -53,7 +53,11 @@ export default function LCARSLayout({ children }: LayoutProps) {
         {/* Bottom Section */}
         <div className="bottomSection">
           <div className="botLeftSection">
-            <button className="bLButton1" onClick={() => fetch("/api/openSettings")}>Settings</button>
+            <button 
+              className="bLButton1" 
+              onClick={() => setCurrentPanel("settingsSystem")}>
+                Settings
+            </button>
             <button
               className="bLButton2"
               onClick={() => setCurrentPanel("diskSystem")}
@@ -91,6 +95,9 @@ export default function LCARSLayout({ children }: LayoutProps) {
                 {currentPanel === "fileSystem" && <FileSystemPanel />}
                 {currentPanel === "homeSystem" && <HomePanel />}
                 {currentPanel === "diskSystem" && <DiskPanel />}
+
+                {/* Adolfo - SettingsPanel */}
+                {currentPanel === "settingsSystem" && <SettingsPanel />}
               </div>
             </div>
           </div>
