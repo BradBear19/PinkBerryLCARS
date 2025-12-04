@@ -1,5 +1,6 @@
 "use client"; // required if using Next.js app directory
 import { useState, useEffect } from "react";
+import path from "path";
 
 type networkInfo = {
   iface: string;
@@ -180,45 +181,92 @@ export const AboutSystemPanel = () => {
 
 export const FileSystemPanel = () => {
   const [currentLoc, setCurrentLoc] = useState<fileHandler | null>(null);
+  const [currentPath, setCurrentPath] = useState("C:\\"); // initial folder
+
+  const fetchFiles = (pathToFetch) => {
+    fetch(`/api/fileAPI?targetDir=${encodeURIComponent(pathToFetch)}`)
+      .then(res => res.json())
+      .then(data => setCurrentLoc(data))
+      .catch(err => console.error("Failed to fetch file info:", err));
+  };
 
   useEffect(() => {
-    fetch("/api/fileAPI")
-      .then((res) => res.json())
-      .then((data) => setCurrentLoc(data.fileInfo))
-      .catch((err) => console.error("Failed to fetch system info:", err));
-  }, []);
+    fetchFiles(currentPath);
+  }, [currentPath]);
 
+  const handleFolderClick = (item) => {
+    if (item.type === "Directory") {
+      setCurrentPath(item.path);
+    }
+  };
+  
+
+  const handleFileClick = (item) => {
+    if (item.type === "File") {
+      // Open file in-app (see next section)
+      const ext = item.name.split(".").pop().toLowerCase();
+      if (["png","jpg","jpeg","gif","mp4","webm","ogg"].includes(ext)) {
+        setFilePreview(item.path);
+      } else {
+        alert(`Cannot preview this file type: ${ext}`);
+      }
+    }
+  };
+
+  let parent = currentPath.split("\\").slice(0, -1).join("\\");
+
+  // If the result is just a drive letter, add the backslash
+  if (/^[A-Z]:$/i.test(parent)) {
+    parent += "\\";
+  }
+
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+
+  
   return (
-    <div className="panel fade-in">
-      {currentLoc ? (
-        <div>
-          <h2>File System</h2>
-          <p>Current Directory: {currentLoc.name}</p>
-          <p>File Type: {currentLoc.type}</p>
-          <p>Full Path: {currentLoc.path}</p>
+    <div>
+      <h2>Current Directory: {currentPath}</h2>
+      <button onClick={() => setCurrentPath(parent)}>
+        Up One Folder
+      </button>
 
-          <h3>Contents</h3>
-
-          <div className="children-container">
-            {currentLoc.children && currentLoc.children.length > 0 ? (
-              currentLoc.children.map((item, index) => (
-                <div key={index} className="file-box">
-                  <button>Name: {item.name}</button>
-                  <p><strong>Type:</strong> {item.type}</p>
-                  <p><strong>Path:</strong> {item.path}</p>
-                </div>
-              ))
-            ) : (
-              <p>No items found in this directory.</p>
-            )}
+      <div style={{ display: "flex", flexWrap: "wrap", marginTop: "10px" }}>
+        {currentLoc?.children.map((item, i) => (
+          <div
+            key={i}
+            style={{
+              border: "1px solid #ccc",
+              padding: "8px",
+              margin: "4px",
+              width: "150px",
+              cursor: "pointer"
+            }}
+            onClick={() => item.type === "Directory" ? handleFolderClick(item) : handleFileClick(item)}
+          >
+            <strong>{item.name}</strong>
+            <p>{item.type}</p>
           </div>
+        ))}
+      </div>
+
+      {filePreview && (
+        <div style={{ marginTop: "20px" }}>
+          <h3>Preview: {filePreview.split("\\").pop()}</h3>
+          {["png","jpg","jpeg","gif"].some(ext => filePreview.endsWith(ext)) && (
+            <img src={`file:///${filePreview}`} style={{ maxWidth: "100%" }} />
+          )}
+          {["mp4","webm","ogg"].some(ext => filePreview.endsWith(ext)) && (
+            <video controls style={{ maxWidth: "100%" }}>
+              <source src={`file:///${filePreview}`} />
+            </video>
+          )}
+          <button onClick={() => setFilePreview(null)}>Close Preview</button>
         </div>
-      ) : (
-        <p>Retrieving File Info…</p>
       )}
     </div>
   );
 };
+
 
 export const DriveSelectionScreen = ({
   setCurrentPanel,
