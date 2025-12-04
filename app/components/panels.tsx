@@ -192,7 +192,6 @@ export const AboutSystemPanel = () => {
 };
 
 
-
 export const FileSystemPanel = ({
   currentPath,
   setCurrentPath,
@@ -228,10 +227,13 @@ export const FileSystemPanel = ({
   };
 
   let parent = currentPath.split("\\").slice(0, -1).join("\\");
+
+  // If the result is just a drive letter, add the backslash
   if (/^[A-Z]:$/i.test(parent)) {
     parent += "\\";
   }
 
+  
   return (
     <div>
       <h2>Current Directory: {currentPath}</h2>
@@ -252,27 +254,33 @@ export const FileSystemPanel = ({
         Up One Folder
       </button>
 
-      <div className="fileSysBox">
-        {currentLoc?.children.map((item, i) => (
-          <div
-            key={i}
-            style={{ border: "1px solid #ccc", padding: "8px", margin: "4px", width: "150px", cursor: "pointer" }}
-            onClick={() =>
-              item.type === "Directory"
-                ? handleFolderClick(item)
-                : handleFileClick(item)
-            }
-          >
-            <strong>{item.name}</strong>
-            <p>{item.type}</p>
-          </div>
-        ))}
+      <div style={{ display: "flex", flexWrap: "wrap", marginTop: "10px" }}>
+        <div className="fileSysBox">
+          {currentLoc?.children.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                border: "1px solid #ccc",
+                padding: "8px",
+                margin: "4px",
+                width: "150px",
+                cursor: "pointer"
+              }}
+              onClick={() =>
+                item.type === "Directory"
+                  ? handleFolderClick(item)
+                  : handleFileClick(item)
+              }
+            >
+              <strong>{item.name}</strong>
+              <p>{item.type}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
-
-
 
 // Adolfo - Settings
 
