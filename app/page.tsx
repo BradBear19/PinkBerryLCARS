@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { AboutSystemPanel, FileSystemPanel } from "./components/panels";
+import LCARSApp from "./components/LCARSApp";
 
-export default function Page() {
-  const [currentPanel, setCurrentPanel] = useState<string>("");
+export default function Page({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      {currentPanel === "aboutSystem" && <AboutSystemPanel />}
-      {currentPanel === "fileSystem" && <FileSystemPanel />}
-    </>
+    <LCARSApp>
+      {children}
+    </LCARSApp>
   );
 }
