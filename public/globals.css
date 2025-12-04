@@ -327,6 +327,10 @@ button:hover {
     gap: 10px;
 }
 
+.diskGraph {
+    height: 50px;
+}
+
 .options {
     display: flex;
     flex-direction: column;
@@ -351,6 +355,10 @@ button:hover {
 .options .optionButton:hover {
     color: rgb(231, 200, 96);
     background: #000;
+}
+
+.diskGraph {
+    width: 100%;
 }
 
 .fade-in {
