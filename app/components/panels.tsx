@@ -1,5 +1,4 @@
 "use client"; // required if using Next.js app directory
-import { useState, useEffect } from "react";
 
 type networkInfo = {
   iface: string;
@@ -33,8 +32,8 @@ type systemPlatform = {
   platform: string;
   arch: string;
   upTime: number;
-  cpuInfo: CpuInfo;
-  networkInfo: networkInfo; 
+  cpuInfo: CpuInfo;  // ← add this
+  networkInfo: networkInfo;  // ← add this
   totalMem: number;
   freeMem: number;
 };
@@ -44,73 +43,14 @@ type diskPlatform = {
   diskSpace: diskSpace;
 }
 
-type fileHandler = {
-  name: string;
-  type: string;
-  path: string;
-  children: subDirectory[];
-}
-
-type subDirectory = {
-  name: string;
-  type: string;
-  path: string;
-}
-
-type phsyicalDrive = {
-  Name: string;
-  Root: string;
-  Free: number;
-  Used: number;
-}
 
 
-export const HomePanel = () => (
-  <div className="panel fade-in">
-    <h1>Home Screen</h1>
-  </div>
-);
+import Image from "next/image";
 
+import { setDefaultAutoSelectFamily } from "net";
+import { useState, useEffect } from "react";
+import { playBeep } from "./audioRender";
 
-
-export const DiskPanel = () => {
-  const [diskPlatform, setSystemPlatform] = useState<phsyicalDrive[] | null>(null);
-
-  useEffect(() => {
-    fetch("/api/driveLoad") // adjust query or endpoint as needed
-      .then((res) => res.json())
-      .then((data) => {
-         if (Array.isArray(data)) {
-         setSystemPlatform(data);
-        } else {
-          setSystemPlatform([data]);
-        }
-      })
-      .catch((err) => console.error("Failed to fetch system info:", err));
-  }, []);
-
-  return (
-    <div>
-      {diskPlatform && diskPlatform.length > 0 ? (
-        <div>
-          <h2>Drive Selection Screen</h2>
-          <p>Available Drives:</p>
-
-          {diskPlatform.map((drive, index) => (
-            <div key={index}>
-              <p><strong>Drive Name:</strong> {drive.Name}</p>
-              <p><strong>Drive Root:</strong> {drive.Root}</p>
-              <p><strong>Free Space (GB):</strong> {(drive.Free / (1024 ** 3)).toFixed(2)}</p>
-              <p><strong>Used Space (GB):</strong> {(drive.Used / (1024 ** 3)).toFixed(2)}</p>
-            </div>
-          ))}
-        </div>
-    ) : (
-      <p>Obtaining Drive Information...</p>
-    )}
-  </div>
-  );
-};
 
 
 
@@ -125,13 +65,14 @@ export const AboutSystemPanel = () => {
   }, []);
 
   return (
+
     <div className="panel fade-in">
       <h1>About Screen</h1>
       {systemPlatform ? (
         <div className="info-columns-container">
           <div className="info-column-syst">
             <div className="dropdown">
-            <button className="dropbtn"> System Information</button>
+            <button className="dropbtn" onClick={() => playBeep()}> System Information</button>
             <div className="dropdown-content">
             <p>Platform: {systemPlatform.platform}</p>
             <p>Architecture: {systemPlatform.arch}</p>
@@ -144,7 +85,7 @@ export const AboutSystemPanel = () => {
 
           <div className="info-column">
             <div className="dropdown">
-              <button className="dropbtn">Wi-Fi Information</button>
+              <button className="dropbtn" onClick={() => playBeep()}>Wi-Fi Information</button>
                 <div className="dropdown-content">
             <p>Interface: {systemPlatform.networkInfo.iface}</p>
             <p>IP Address: {systemPlatform.networkInfo.address}</p>
@@ -157,7 +98,7 @@ export const AboutSystemPanel = () => {
 
           <div className="info-column">
             <div className="dropdown">
-              <button className="dropbtn">CPU Information</button>
+              <button className="dropbtn" onClick={() => playBeep()}>CPU Information</button>
                 <div className="dropdown-content">
                 <p>Processor Type: {systemPlatform.cpuInfo.Name} MHz</p>
                 <p>Core Count: {systemPlatform.cpuInfo.NumberOfCores} MHz</p>
@@ -173,96 +114,58 @@ export const AboutSystemPanel = () => {
         <p>Loading system information...</p>
       )}
     </div>
+    
   );
 };
 
 
+export const FileSystemPanel = () => (
+  <div className="panel fade-in" >
+    <h1>File System</h1>
+    <p>Dynamic file system content goes here.</p>
+  </div>
+);
 
-export const FileSystemPanel = () => {
-  const [currentLoc, setCurrentLoc] = useState<fileHandler | null>(null);
+export const HomePanel = () => (
+  <div className="panel fade-in">
+    <h1>Home Screen</h1>
+  </div>
+);
+
+export const DiskPanel = () => {
+  const [diskPlatform, setSystemPlatform] = useState<diskPlatform | null>(null);
 
   useEffect(() => {
-    fetch("/api/fileAPI")
+    fetch("/api/diskInfo") // adjust query or endpoint as needed
       .then((res) => res.json())
-      .then((data) => setCurrentLoc(data.fileInfo))
+      .then((data) => setSystemPlatform(data))
       .catch((err) => console.error("Failed to fetch system info:", err));
   }, []);
 
-  return (
+  return(
     <div className="panel fade-in">
-      {currentLoc ? (
-        <div>
-          <h2>File System</h2>
-          <p>Current Directory: {currentLoc.name}</p>
-          <p>File Type: {currentLoc.type}</p>
-          <p>Full Path: {currentLoc.path}</p>
-
-          <h3>Contents</h3>
-
-          <div className="children-container">
-            {currentLoc.children && currentLoc.children.length > 0 ? (
-              currentLoc.children.map((item, index) => (
-                <div key={index} className="file-box">
-                  <button>Name: {item.name}</button>
-                  <p><strong>Type:</strong> {item.type}</p>
-                  <p><strong>Path:</strong> {item.path}</p>
-                </div>
-              ))
-            ) : (
-              <p>No items found in this directory.</p>
-            )}
+      <h1>Disk Screen</h1>
+      {diskPlatform ? (
+        <div className="info-columns-container">
+          <div className="info-column-syst">
+            <div className="dropdown">
+          <button className="dropbtn"onClick={() => playBeep()}> Disk Information</button>
+          <div className="dropdown-content">
+          <p>Disk Model: {diskPlatform.diskInfo.Model}</p>
+          <p>Storage Type: {diskPlatform.diskInfo.MediaType}</p>
+          <p>Free System Space (GB): {(diskPlatform.diskSpace.FreeSpace / (1024 ** 3)).toFixed(2)}</p>
+          <p>Total Disk Size (GB): {(diskPlatform.diskSpace.Size / (1024 ** 3)).toFixed(2)}</p>
           </div>
         </div>
-      ) : (
-        <p>Retrieving File Info…</p>
+        </div>
+        </div>
+        
+
+     
+      )  : (
+        <p>Loading system information...</p>
       )}
     </div>
   );
 };
-
-export const DriveSelectionScreen = ({
-  setCurrentPanel,
-}: {
-  setCurrentPanel: (panel: string) => void;
-}) => {
-  const [driveList, setDriveList] = useState<phsyicalDrive[] | null>(null);
-
-  useEffect(() => {
-    fetch("/api/driveLoad")
-      .then((res) => res.json())
-      .then((data) => {
-         if (Array.isArray(data)) {
-         setDriveList(data);
-        } else {
-          setDriveList([data]);
-        }
-      })
-      .catch((err) => console.error("Failed to fetch system info:", err));
-  }, []);
-
-  return (
-    <div>
-      {driveList && driveList.length > 0 ? (
-        <div>
-          <h2>Drive Selection Screen</h2>
-          <p>Available Drives:</p>
-
-          {driveList.map((drive, index) => (
-            <div key={index} className="drive-box">
-              <p><strong>Drive Name:</strong> {drive.Name}</p>
-              <p><strong>Drive Root:</strong> {drive.Root}</p>
-
-              <button onClick={() => {setCurrentPanel("fileSystem");}}>
-              Open Drive
-              </button>
-            </div>
-          ))}
-        </div>
-    ) : (
-      <p>Obtaining Drive Information...</p>
-    )}
-  </div>
-  );
-};
-
 
