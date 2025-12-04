@@ -132,15 +132,6 @@ button:hover {
 
 }
 
-.offline-gif
-{
-    display: flex;
-    position: relative;
-     src: url('public/offline alert.gif');
-
-
-}
-
 .mainSec{
     height: 250%;
     position: relative;
@@ -268,7 +259,7 @@ button:hover {
     width: 25%;
     height: 12.5%;
     background: rgb(221, 68, 68);
-    z-index: 1;
+    z-index: 2;
 }
 
 /* Black overlay cube for LCARS-style curve */
@@ -280,13 +271,14 @@ button:hover {
     height: 12.5%;
     background: var(--bg-color);
     border-radius: 49px 0 0 0; /* mirrors top shape */
-    z-index: 2;
+    z-index: 3;
 }
 
 .dynamicSec {
     height: 100%;
     position: relative;
     overflow: scroll;
+    z-index: 4;
 }
 
 .specialDynamic {
@@ -294,7 +286,7 @@ button:hover {
     top: 0;
     left: 20px;
     height: 12.5%;
-    z-index: 3;
+    z-index: 4;
     text-align: left;
 }
 
