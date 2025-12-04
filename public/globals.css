@@ -9,6 +9,7 @@
   --primary-color: rgb(255, 149, 28);
   --accent-color: rgb(231, 200, 96);
   --bg-color: #111;
+
 }
 
 html {
@@ -19,7 +20,7 @@ html {
 
 body {
     background: var(--bg-color);
-    color: var(--primary-color);
+    color: var(--accent-color);
     font-family: 'Final Frontier';
     height: 100%;
     display:flex;
@@ -131,6 +132,14 @@ button:hover {
 
 }
 
+.offline-gif
+{
+    display: flex;
+    position: relative;
+     src: url('public/offline alert.gif');
+
+
+}
 
 .mainSec{
     height: 250%;
@@ -199,7 +208,7 @@ button:hover {
     left: 0;
     width: 25%;
     height: 48%;
-    background: #111;
+    background: var(--bg-color);
     border-radius: 0 0 0 75px;
 }
 
@@ -269,7 +278,7 @@ button:hover {
     left: 0;
     width: 25%;
     height: 12.5%;
-    background: #111;
+    background: var(--bg-color);
     border-radius: 49px 0 0 0; /* mirrors top shape */
     z-index: 2;
 }
@@ -300,7 +309,7 @@ button:hover {
 
 .box {
     margin: 10px;
-    border: 4px solid rgb(231, 200, 96);
+    border: 4px solid var(--accent-color);
     border-radius: 4px;
     flex: 1;
 }
@@ -355,11 +364,14 @@ button:hover {
 }
 
 
+
+
+/* PJ and Hunter 12/3/25 */
 /* Three-column responsive layout */
 .info-columns-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 40%;
   gap: 5%;
 }
 
@@ -371,13 +383,25 @@ button:hover {
 .info-column-syst button {
   font-size: 2rem;
   margin: 0.5rem;
-  color: rgb(255, 149, 28);
+  color: var(--bg-color);
+}
+
+.info-column-syst:hover button {
+  font-size: 2rem;
+  margin: 0.5rem;
+  color: var(--accent-color);
 }
 
 .info-column-syst p {
   font-size: 1.5rem;
   margin: 0.25rem;
+  color: var(--accent-color);
 }
+
+
+
+
+
 
 .info-column {
   flex: 1;
@@ -387,14 +411,23 @@ button:hover {
 .info-column button {
   font-size: 2rem;
   margin: 0.5rem;
-  color: rgb(255, 149, 28);
+  color: var(--bg-color);
 }
 
+.info-column:hover button {
+  font-size: 2rem;
+  margin: 0.5rem;
+  color: var(--accent-color);
+}
 .info-column p {
   font-size: 1.5rem;
   margin: 0.25rem;
   text-align: center;
+  color: var(--accent-color);
 }
+
+
+
 
 
 
@@ -409,7 +442,7 @@ button:hover {
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: rgb(68, 85, 255);
+  background-color: var(--accent-color);
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -420,7 +453,7 @@ button:hover {
 /* Dropdown Content (Hidden until focused*/
 .dropdown-content {
   position: absolute;
-  background-color: #111;
+  background-color: var(--bg-color);
   min-width: 160px;
   z-index: 1;
   border-radius: 15px;
@@ -437,6 +470,8 @@ button:hover {
     transform: translatey(0);
     pointer-events: auto;
 }
+
+
 
 
 .fileSysBox {

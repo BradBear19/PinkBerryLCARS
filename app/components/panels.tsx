@@ -70,6 +70,7 @@ import { exit } from "process";
 import { useState, useEffect } from "react";
 import { cursorTo } from "readline";
 import { CpuChart } from "./cpuChart";
+import { DiskChart } from "./diskChart";
 import { playBeep } from "./audioRender";
 
 export const HomePanel = () => (
@@ -464,8 +465,7 @@ export const SettingsPanel = () => {
 
           {/* Container for chart.js graph showing what's on the disk! */}
           <div className="diskGraph">
-            <h3>Disk Usage</h3>
-            <p>Placeholder</p>
+            <DiskChart />
           </div>
 
           {/* Container for quick action buttons */}
