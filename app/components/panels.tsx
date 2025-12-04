@@ -26,7 +26,7 @@ type diskInfo = {
 type diskSpace = {
   FreeSpace: number;
   Size: number;
-}
+};
 
 type systemPlatform = {
   platform: string;
@@ -94,32 +94,27 @@ export const DiskPanel = () => {
   }, []);
 
   return (
-    <div>
-      {diskPlatform && diskPlatform.length > 0 ? (
-        <div>
+  <div>
+    {diskPlatform && diskPlatform.length > 0 ? (
+      <div>
         <h2>Drive Selection Screen</h2>
-          <p>Available Drives:</p>
+        <p>Available Drives:</p>
         <div className="info-columns-container">
           {diskPlatform.map((drive, index) => (
-            <div className="info-column-syst">
-             <div className="dropdown">
-            <button className="dropbtn" onClick={() => playBeep()}> Drive Information</button>
-             <div className="dropdown-content">
-            <div key={index}>
-              <p><strong>Drive Name:</strong> {drive.Name}</p>
-              <p><strong>Drive Root:</strong> {drive.Root}</p>
-              <p><strong>Free Space (GB):</strong> {(drive.Free / (1024 ** 3)).toFixed(2)}</p>
-              <p><strong>Used Space (GB):</strong> {(drive.Used / (1024 ** 3)).toFixed(2)}</p>
+            <div key={index} className="info-column-syst">
+              <div className="dropdown">
+                <button className="dropbtn" onClick={() => playBeep()}>Drive Information</button>
+                <div className="dropdown-content">
+                  <p><strong>Drive Name:</strong> {drive.Name}</p>
+                  <p><strong>Drive Root:</strong> {drive.Root}</p>
+                  <p><strong>Free Space (GB):</strong> {(drive.Free / (1024 ** 3)).toFixed(2)}</p>
+                  <p><strong>Used Space (GB):</strong> {(drive.Used / (1024 ** 3)).toFixed(2)}</p>
+                </div>
+              </div>
             </div>
-            </div>
-             </div>
-             </div>
           ))}
-          </div>
-         
-          
-        
         </div>
+      </div>
     ) : (
       <p>Obtaining Drive Information...</p>
     )}
@@ -194,11 +189,18 @@ export const AboutSystemPanel = () => {
 
 
 
-export const FileSystemPanel = () => {
+export const FileSystemPanel = ({
+  currentPath,
+  setCurrentPath,
+  setCurrentPanel,
+}: {
+  currentPath: string;
+  setCurrentPath: (path: string) => void;
+  setCurrentPanel: (panel: string) => void;
+}) => {
   const [currentLoc, setCurrentLoc] = useState<fileHandler | null>(null);
-  const [currentPath, setCurrentPath] = useState("C:\\"); // initial folder
 
-  const fetchFiles = (pathToFetch) => {
+  const fetchFiles = (pathToFetch: string) => {
     fetch(`/api/fileAPI?targetDir=${encodeURIComponent(pathToFetch)}`)
       .then(res => res.json())
       .then(data => setCurrentLoc(data))
@@ -209,84 +211,95 @@ export const FileSystemPanel = () => {
     fetchFiles(currentPath);
   }, [currentPath]);
 
-  const handleFolderClick = (item) => {
+  const handleFolderClick = (item: subDirectory) => {
     if (item.type === "Directory") {
       setCurrentPath(item.path);
     }
   };
-  
 
-  const handleFileClick = (item) => {
-    if (item.type === "File") {
-      // Open file in-app (see next section)
-      const ext = item.name.split(".").pop().toLowerCase();
-      if (["png","jpg","jpeg","gif","mp4","webm","ogg"].includes(ext)) {
-        setFilePreview(item.path);
-      } else {
-        alert(`Cannot preview this file type: ${ext}`);
-      }
-    }
+  const handleFileClick = (item: subDirectory) => {
+    if (item.type !== "Directory") {
+      fetch(`/api/openFile?path=${encodeURIComponent(item.path)}`);
+  }
   };
 
   let parent = currentPath.split("\\").slice(0, -1).join("\\");
-
-  // If the result is just a drive letter, add the backslash
   if (/^[A-Z]:$/i.test(parent)) {
     parent += "\\";
   }
 
-  const [filePreview, setFilePreview] = useState<string | null>(null);
-
-  
   return (
     <div>
       <h2>Current Directory: {currentPath}</h2>
-      <button onClick={() => setCurrentPath(parent)}>
+
+      <button
+        onClick={() => {
+          const isDriveRoot = /^[A-Z]:\\$/i.test(currentPath);
+
+          if (isDriveRoot) {
+            setCurrentPanel("driveSelection");
+          } else {
+            setCurrentPath(parent);
+          }
+
+          playBeep();
+        }}
+      >
         Up One Folder
       </button>
 
-      <div style={{ display: "flex", flexWrap: "wrap", marginTop: "10px" }}>
+      <div className="fileSysBox">
         {currentLoc?.children.map((item, i) => (
           <div
             key={i}
-            style={{
-              border: "1px solid #ccc",
-              padding: "8px",
-              margin: "4px",
-              width: "150px",
-              cursor: "pointer"
-            }}
-            onClick={() => item.type === "Directory" ? handleFolderClick(item) : handleFileClick(item)}
+            style={{ border: "1px solid #ccc", padding: "8px", margin: "4px", width: "150px", cursor: "pointer" }}
+            onClick={() =>
+              item.type === "Directory"
+                ? handleFolderClick(item)
+                : handleFileClick(item)
+            }
           >
             <strong>{item.name}</strong>
             <p>{item.type}</p>
           </div>
         ))}
       </div>
-
-      {filePreview && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Preview: {filePreview.split("\\").pop()}</h3>
-          {["png","jpg","jpeg","gif"].some(ext => filePreview.endsWith(ext)) && (
-            <img src={`file:///${filePreview}`} style={{ maxWidth: "100%" }} />
-          )}
-          {["mp4","webm","ogg"].some(ext => filePreview.endsWith(ext)) && (
-            <video controls style={{ maxWidth: "100%" }}>
-              <source src={`file:///${filePreview}`} />
-            </video>
-          )}
-          <button onClick={() => setFilePreview(null)}>Close Preview</button>
-        </div>
-      )}
     </div>
   );
 };
 
+export const FileSystemApp = () => {
+  const [currentPanel, setCurrentPanel] = useState("driveSelection");
+  const [currentPath, setCurrentPath] = useState("C:\\"); // initial path
+
+  return (
+    <>
+      {currentPanel === "driveSelection" && (
+        <DriveSelectionScreen
+          setCurrentPanel={setCurrentPanel}
+          setCurrentPath={setCurrentPath} // pass path setter
+        />
+      )}
+
+      {currentPanel === "fileSystem" && (
+        <FileSystemPanel
+          currentPath={currentPath} // pass current path
+          setCurrentPath={setCurrentPath} // allow navigation
+          setCurrentPanel={setCurrentPanel}
+        />
+      )}
+    </>
+  );
+};
+
+
 
 export const DriveSelectionScreen = ({
   setCurrentPanel,
+  setCurrentPath,
 }: {
   setCurrentPanel: (panel: string) => void;
+  setCurrentPath: (path: string) => void;
 }) => {
   const [driveList, setDriveList] = useState<phsyicalDrive[] | null>(null);
 
@@ -307,19 +320,24 @@ export const DriveSelectionScreen = ({
     <div>
       {driveList && driveList.length > 0 ? (
         <div>
-          <h2>Drive Selection Screen</h2>
-          <p>Available Drives:</p>
+          <h1>Drive Selection Screen</h1>
+          <h2>Available Drives:</h2>
 
+          <div className="info-columns-container">
           {driveList.map((drive, index) => (
-            <div key={index} className="drive-box">
+            <div key={index} className="info-column-syst">
               <p><strong>Drive Name:</strong> {drive.Name}</p>
               <p><strong>Drive Root:</strong> {drive.Root}</p>
-
-              <button onClick={() => {setCurrentPanel("fileSystem");}}>
+              <button className='dropbtn' onClick={() => {
+                setCurrentPath(drive.Root);
+                setCurrentPanel("fileSystem");
+                playBeep();
+              }}>
               Open Drive
               </button>
             </div>
           ))}
+        </div>
         </div>
     ) : (
       <p>Obtaining Drive Information...</p>
