@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ReactNode, useEffect } from "react";
-import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel, SettingsPanel } from "./components/panels";
+import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel, DriveSelectionScreen, FileSystemApp, SettingsPanel} from "./components/panels";
 import { playBeep } from "./components/audioRender";
 import LCARSInfoPanel from "./components/infoRender";
 
@@ -60,19 +60,19 @@ export default function LCARSLayout({ children }: LayoutProps) {
             </button>
             <button
               className="bLButton2"
-              onClick={() => setCurrentPanel("diskSystem")}
+              onClick={() => {setCurrentPanel("diskSystem"); playBeep();}}
             >
               Disk Specs
             </button>
             <button
               className="bLButton2"
-              onClick={() => setCurrentPanel("aboutSystem")}
+              onClick={() => {setCurrentPanel("aboutSystem"); playBeep();}}
             >
               System Specs
             </button>
             <button
               className="bLButton3"
-              onClick={() => setCurrentPanel("fileSystem")}
+              onClick={() => {setCurrentPanel("fileSystem"); playBeep();}}
             >
               File System
             </button>
@@ -92,12 +92,12 @@ export default function LCARSLayout({ children }: LayoutProps) {
               <div className= "specialDynamic"> 
                 {children}
                 {currentPanel === "aboutSystem" && <AboutSystemPanel />}
-                {currentPanel === "fileSystem" && <FileSystemPanel />}
                 {currentPanel === "homeSystem" && <HomePanel />}
                 {currentPanel === "diskSystem" && <DiskPanel />}
 
                 {/* Adolfo - SettingsPanel */}
                 {currentPanel === "settingsSystem" && <SettingsPanel />}
+                {currentPanel === "fileSystem" && <FileSystemApp />}
               </div>
             </div>
           </div>
