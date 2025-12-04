@@ -279,3 +279,18 @@ button:hover {
   to { opacity: 1; }
 }
 
+.children-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.file-box {
+  background: rgba(255,255,255,0.06);
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 240px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+

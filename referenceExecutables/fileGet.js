@@ -22,14 +22,14 @@ function dirToJsonOneLayer(dirPath) {
             const isDir = fs.statSync(fullPath).isDirectory();
             return {
                 name,
-                type: isDir ? 'directory' : 'file',
+                type: isDir ? 'Directory' : 'File',
                 path: fullPath
             };
         });
 
         return {
             name: path.basename(dirPath),
-            type: 'directory',
+            type: 'Directory',
             path: dirPath,
             children
         };

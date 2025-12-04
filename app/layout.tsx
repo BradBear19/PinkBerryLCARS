@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ReactNode, useEffect } from "react";
-import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel } from "./components/panels";
+import { AboutSystemPanel, FileSystemPanel, HomePanel, DiskPanel, DriveSelectionScreen} from "./components/panels";
 import { playBeep } from "./components/audioRender";
 import LCARSInfoPanel from "./components/infoRender";
 
@@ -68,7 +68,7 @@ export default function LCARSLayout({ children }: LayoutProps) {
             </button>
             <button
               className="bLButton3"
-              onClick={() => setCurrentPanel("fileSystem")}
+              onClick={() => setCurrentPanel("driveSelection")}
             >
               File System
             </button>
@@ -91,6 +91,7 @@ export default function LCARSLayout({ children }: LayoutProps) {
                 {currentPanel === "fileSystem" && <FileSystemPanel />}
                 {currentPanel === "homeSystem" && <HomePanel />}
                 {currentPanel === "diskSystem" && <DiskPanel />}
+                {currentPanel === "driveSelection" && ( <DriveSelectionScreen setCurrentPanel={setCurrentPanel} />)}
               </div>
             </div>
           </div>
