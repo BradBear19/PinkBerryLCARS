@@ -390,6 +390,7 @@ button:hover {
   font-size: 2rem;
   margin: 0.5rem;
   color: var(--accent-color);
+  background-color: var(--bg-color);
 }
 
 .info-column-syst p {
@@ -418,6 +419,7 @@ button:hover {
   font-size: 2rem;
   margin: 0.5rem;
   color: var(--accent-color);
+  background-color: var(--bg-color);
 }
 .info-column p {
   font-size: 1.5rem;
