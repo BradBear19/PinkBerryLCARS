@@ -55,7 +55,7 @@ export default function LCARSLayout({ children }: LayoutProps) {
           <div className="botLeftSection">
             <button 
               className="bLButton1" 
-              onClick={() => setCurrentPanel("settingsSystem")}>
+              onClick={() => {setCurrentPanel("settingsSystem"); playBeep();}}>
                 Settings
             </button>
             <button
