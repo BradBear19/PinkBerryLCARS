@@ -156,7 +156,11 @@ button:hover {
     box-sizing: border-box;
 }
 
-
+.offline-gif {
+    display: flex;
+    position: relative;
+    src: url('offline_alert.gif') format('GIF');
+}
 
 /* Top bars sit at the BOTTOM of their section */
 .topBarSec {
@@ -344,6 +348,12 @@ button:hover {
 .options .optionButton:hover {
     color: rgb(231, 200, 96);
     background: #000;
+}
+
+
+.diskGraph {
+    height: 50px;
+    max-width: 33%;
 }
 
 .fade-in {
