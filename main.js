@@ -1,12 +1,12 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-const { exec } = require("child_process");
+const { exec, spawn } = require("child_process");
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    fullscreen: true,
+    // fullscreen: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
@@ -87,3 +87,18 @@ ipcMain.handle('get-volume', async () => {
   }
 });
 
+ipcMain.handle('open-powershell', async () => {
+  return new Promise((resolve) => {
+    try {
+      const ps = spawn('powershell.exe', [], {
+        detached: true,
+        stdio: 'ignore',
+        shell: true,
+      });
+      ps.unref(); // Allow parent process to exit independently
+      resolve({ ok: true });
+    } catch (err) {
+      resolve({ ok: false, error: err.message });
+    }
+  });
+});

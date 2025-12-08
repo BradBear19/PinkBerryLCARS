@@ -337,6 +337,16 @@ export const SettingsPanel = () => {
     }
   };
 
+  const openPowerShell = () => {
+    const api = (window as any).electronAPI;
+    if (api && api.openPowerShell) {
+      api.openPowerShell().catch((e: any) => console.warn('openPowerShell error', e));
+    } else {
+      // Fallback for browser environment
+      alert("PowerShell is only available in Electron mode");
+    }
+  };
+
   // When running inside Electron, call into the main process via the preload bridge
   useEffect(() => {
     const api = (window as any).electronAPI;
@@ -447,9 +457,9 @@ export const SettingsPanel = () => {
         </div>
 
         {/* Top right div, CLI settings */}
-        <div className="box cliBox">
+        <div className="box cliBox" onClick={openPowerShell} style={{ cursor: "pointer" }}>
           <h2>PowerShell CLI</h2>
-          <img src="/terminal.gif" alt="Terminal" /> {/* It's just a gif for now */}
+          <img src="/terminal.gif" alt="Terminal" style={{ cursor: "pointer" }} /> {/* Click to open PowerShell */}
         </div>
       </div>
 
