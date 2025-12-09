@@ -132,6 +132,15 @@ button:hover {
 
 }
 
+.offline-gif
+{
+    display: flex;
+    position: relative;
+     src: url('public/offline alert.gif');
+
+
+}
+
 .mainSec{
     height: 250%;
     position: relative;
@@ -156,11 +165,7 @@ button:hover {
     box-sizing: border-box;
 }
 
-.offline-gif {
-    display: flex;
-    position: relative;
-    src: url('offline_alert.gif') format('GIF');
-}
+
 
 /* Top bars sit at the BOTTOM of their section */
 .topBarSec {
@@ -186,73 +191,6 @@ button:hover {
 .b2T, .b2B { background-color: rgb(231, 206, 96); height: 100%; }
 .b3T, .b3B { background-color: rgb(231, 157, 96); height: 100%; }
 .b4T, .b4B { background-color: rgb(172, 115, 236); height: 100%; }
-
-.staticbutton1 {
-    flex: 1;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: end;
-    justify-content: end;
-    text-align: end;
-    height: 100%;
-    background-color: rgb(221, 68, 68);
-    border:4px solid rgb(221, 68, 68);
-    pointer-events: none;
-}
-
-.staticbutton2 {
-    flex: 1;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: end;
-    justify-content: end;
-    text-align: end;
-    height: 100%;
-    background-color: rgb(231, 206, 96);
-    border:4px solid rgb(231, 206, 96);
-    pointer-events: none;
-    word-break: break-word;
-}
-
-.buttonB1, .buttonB2, .buttonB3{
-    flex: 1;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: end;
-    justify-content: end;
-    text-align: end;
-    height: 100%
-}
-
-.buttonB1{
-    background-color: rgb(231, 206, 96);
-    border:4px solid rgb(231, 206, 96);
-}
-.buttonB1:hover {
-    color: rgb(231, 206, 96);
-    background: #000; 
-}
-
-.buttonB2{
-    background-color: rgb(231, 157, 96);
-    border:4px solid rgb(231, 157, 96);
-}
-
-.buttonB2:hover {
-    color: rgb(231, 157, 96);
-    background: #000; 
-}
-
-.buttonB3{
-    background-color: rgb(172, 115, 236);
-    border:4px solid rgb(172, 115, 236);
-}
-
-.buttonB3:hover {
-    color: rgb(172, 115, 236);
-    background: #000; 
-}
-
 
 .roundingTCube {
     position: absolute;
@@ -330,7 +268,7 @@ button:hover {
     width: 25%;
     height: 12.5%;
     background: rgb(221, 68, 68);
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Black overlay cube for LCARS-style curve */
@@ -342,14 +280,13 @@ button:hover {
     height: 12.5%;
     background: var(--bg-color);
     border-radius: 49px 0 0 0; /* mirrors top shape */
-    z-index: 3;
+    z-index: 2;
 }
 
 .dynamicSec {
     height: 100%;
     position: relative;
     overflow: scroll;
-    z-index: 4;
 }
 
 .specialDynamic {
@@ -357,7 +294,7 @@ button:hover {
     top: 0;
     left: 20px;
     height: 12.5%;
-    z-index: 4;
+    z-index: 3;
     text-align: left;
 }
 
@@ -417,12 +354,6 @@ button:hover {
     background: #000;
 }
 
-
-.diskGraph {
-    height: 50px;
-    max-width: 33%;
-}
-
 .fade-in {
   animation: fadein 0.4s ease-out;
 }
@@ -467,6 +398,11 @@ button:hover {
   margin: 0.25rem;
   color: var(--accent-color);
 }
+
+
+
+
+
 
 .info-column {
   flex: 1;

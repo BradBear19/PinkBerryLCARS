@@ -59,7 +59,7 @@ export const DiskChart = () => {
     }
 
     chartRef.current = new Chart(ctx, {
-      type: "doughnut",
+      type: "pie",
       data: {
         labels: ["Used", "Free"],
         datasets: [
@@ -127,15 +127,15 @@ export const DiskChart = () => {
   const totalGb = (diskSpace.Size / (1024 ** 3)).toFixed(2);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "auto" }}>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <div style={{ flex: 1, position: "relative", minHeight: 0 }}>
-        <canvas ref={canvasRef} style={{display: "none"}}></canvas>
+        <canvas ref={canvasRef} style={{ height: "100%" }}></canvas>
       </div>
-      <div style={{ textAlign: "center", padding: "8px", fontSize: "0.85rem", color: "rgb(255, 149, 28)" }}>
-        <p style={{ margin: "4px 0" }}>
+      <div style={{ textAlign: "center", fontSize: "0.85rem", color: "rgb(255, 149, 28)" }}>
+        <p>
           <strong>{diskData.diskInfo.Model}</strong> ({diskData.diskInfo.MediaType})
         </p>
-        <p style={{ margin: "4px 0" }}>
+        <p>
           Total: {totalGb} GB
         </p>
       </div>
