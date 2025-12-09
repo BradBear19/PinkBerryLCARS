@@ -5,6 +5,9 @@ import {
   DiskPanel,
   FileSystemApp,
   SettingsPanel,
+  BotBarNormal,
+  BotBarFile,
+  BotBarCopy
 } from "./panels";
 
 import { playBeep } from "./audioRender";
@@ -12,6 +15,9 @@ import LCARSInfoPanel from "./infoRender";
 
 export default function LCARSLayout({ children }: { children: ReactNode }) {
   const [currentPanel, setCurrentPanel] = useState("homeSystem");
+  const [currentBar, setCurrentBar] = useState("defualt");
+  const [selectedPath, setSelectedPath] = useState(""); // initial path
+
 
   return (
     <>
@@ -22,12 +28,17 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             className="tLTButton"
             onClick={() => {
               setCurrentPanel("homeSystem");
+              setCurrentBar("defualt");
               playBeep();
             }}
           >
             Home
           </button>
-          <button className="tLBButton" onClick={playBeep}>
+          <button className="tLBButton" 
+            onClick={() => {
+              setCurrentBar("defualt");
+              playBeep();
+            }}>
             Back
           </button>
         </div>
@@ -57,6 +68,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             className="bLButton1"
             onClick={() => {
               setCurrentPanel("settingsSystem");
+              setCurrentBar("defualt");
               playBeep();
             }}
           >
@@ -67,6 +79,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             className="bLButton2"
             onClick={() => {
               setCurrentPanel("diskSystem");
+              setCurrentBar("defualt");
               playBeep();
             }}
           >
@@ -77,6 +90,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             className="bLButton2"
             onClick={() => {
               setCurrentPanel("aboutSystem");
+              setCurrentBar("defualt");
               playBeep();
             }}
           >
@@ -87,6 +101,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             className="bLButton3"
             onClick={() => {
               setCurrentPanel("fileSystem");
+              setCurrentBar("FileSystemBar");
               playBeep();
             }}
           >
@@ -95,11 +110,12 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
         </div>
 
         <div className="botRightSection">
-          <div className="botBarSec">
-            <div className="b1B" />
-            <div className="b2B" />
-            <div className="b3B" />
-            <div className="b4B" />
+          <div className="botBarSec" id="bottomBarID">
+            {currentBar === "defualt" && <BotBarNormal />}
+            {currentBar === "CopyBar" && (
+              <BotBarCopy selectedPath={selectedPath }setCurrentBar={setCurrentBar}/>)}
+            {currentBar === "FileSystemBar" && (
+              <BotBarFile selectedPath={selectedPath} setCurrentBar={setCurrentBar}  />)}
           </div>
 
           <div className="dynamicSec">
@@ -108,12 +124,11 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
 
             <div className="specialDynamic">
               {children}
-
               {currentPanel === "aboutSystem" && <AboutSystemPanel />}
               {currentPanel === "homeSystem" && <HomePanel />}
               {currentPanel === "diskSystem" && <DiskPanel />}
               {currentPanel === "settingsSystem" && <SettingsPanel />}
-              {currentPanel === "fileSystem" && <FileSystemApp />}
+              {currentPanel === "fileSystem" && <FileSystemApp setSelectedItem={setSelectedPath}/>}
             </div>
           </div>
         </div>
