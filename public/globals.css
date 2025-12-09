@@ -132,13 +132,6 @@ button:hover {
 
 }
 
-.offline-gif
-{
-    display: flex;
-    position: relative;
-     src: url('./offline alert.gif');
-}
-
 .mainSec{
     height: 250%;
     position: relative;
