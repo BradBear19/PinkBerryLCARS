@@ -87,23 +87,32 @@ export const CpuChart = () => {
 
   // Update chart data every 2 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Generate random CPU usage for demo (replace with actual API call)
-      const newCpuValue = Math.random() * 50;
-      const now = new Date();
-      const timeLabel = now.toLocaleTimeString();
+    const fetchAndPush = async () => {
+      try {
+        const res = await fetch('/api/cpuUsage');
+        const data = await res.json();
+        const newCpuValue = data && data.ok && typeof data.usage === 'number' ? data.usage : 0;
+        const now = new Date();
+        const timeLabel = now.toLocaleTimeString();
 
-      setCpuData((prev) => {
-        const updated = [...prev, newCpuValue];
-        // Keep only last 30 data points
-        return updated.slice(-30);
-      });
+        setCpuData((prev) => {
+          const updated = [...prev, newCpuValue];
+          // Keep only last 30 data points
+          return updated.slice(-30);
+        });
 
-      setLabels((prev) => {
-        const updated = [...prev, timeLabel];
-        return updated.slice(-30);
-      });
-    }, 2000);
+        setLabels((prev) => {
+          const updated = [...prev, timeLabel];
+          return updated.slice(-30);
+        });
+      } catch (e) {
+        console.warn('Failed to fetch CPU usage', e);
+      }
+    };
+
+    // initial fetch
+    fetchAndPush();
+    const interval = setInterval(fetchAndPush, 2000);
 
     return () => clearInterval(interval);
   }, []);
