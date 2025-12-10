@@ -12,16 +12,18 @@ import {
 
 import { playBeep } from "./audioRender";
 import LCARSInfoPanel from "./infoRender";
+import OfflineWarning from "./OfflineWarning";
 
 export default function LCARSLayout({ children }: { children: ReactNode }) {
   const [currentPanel, setCurrentPanel] = useState("homeSystem");
   const [currentBar, setCurrentBar] = useState("defualt");
   const [selectedPath, setSelectedPath] = useState(""); // initial path
+  const [isOnline, setIsOnline] = useState(true);
 
 
   return (
     <>
-      {/* Top Section */}
+      <OfflineWarning isOnline={isOnline} />
       <div className="topSection">
         <div className="topLeftSec">
           <button
@@ -46,7 +48,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
         <div className="topRightSec">
           <div className="mainSec">
             <div className="sysInfo">
-              <LCARSInfoPanel />
+              <LCARSInfoPanel onOnlineStatusChange={setIsOnline} />
             </div>
             <div className="roundingTCube" />
             <div className="roundingTCube1" />

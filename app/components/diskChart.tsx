@@ -66,10 +66,10 @@ export const DiskChart = () => {
           {
             data: [usedSpace, freeSpace],
             backgroundColor: [
-              "rgba(221, 68, 68, 0.8)",
-              "rgba(100, 200, 100, 0.8)",
+              "#a12400",
+              "#f4a23E",
             ],
-            borderColor: ["rgb(221, 68, 68)", "rgb(100, 200, 100)"],
+            borderColor: ["#812429", "orange"],
             borderWidth: 2,
           },
         ],
