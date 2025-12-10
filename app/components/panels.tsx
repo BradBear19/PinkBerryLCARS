@@ -762,7 +762,7 @@ export function BotBarCopy({
   const [fileForCopy, setFileForCopy] = useState(selectedPath);
 
   const executePaste = () => {
-  const target = selectedPath; // use the value directly
+  const target = selectedPath;
   const url = `/api/copyFile?sourceDir=${encodeURIComponent(fileForCopy)}&targetDir=${encodeURIComponent(target)}`;
   
   fetch(url)
