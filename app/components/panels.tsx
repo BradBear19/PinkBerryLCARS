@@ -77,6 +77,12 @@ import { LcarsDeleteModal, LcarsFileCreateModal } from "./LCARSModal"; // see pr
 export const HomePanel = () => (
   <div className="panel fade-in">
     <h1>Home Screen</h1>
+    <div className="home-body">
+      <p><strong>Welcome User</strong></p>
+      <div className = "backgroundImage">
+      <img src = "Starfleet.png" width = "348"  height = "348" alt = "img file"></img>
+      </div>
+    </div>
   </div>
 );
 

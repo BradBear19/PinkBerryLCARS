@@ -1,7 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function LCARSInfoPanel() {
+interface LCARSInfoPanelProps {
+  onOnlineStatusChange?: (isOnline: boolean) => void;
+}
+
+export default function LCARSInfoPanel({ onOnlineStatusChange }: LCARSInfoPanelProps) {
   const [time, setTime] = useState("");
   const [online, setOnline] = useState(true);
   const [host, setHost] = useState("");
@@ -17,7 +21,13 @@ export default function LCARSInfoPanel() {
 
   // Online/offline status
   useEffect(() => {
-    const updateOnline = () => setOnline(navigator.onLine);
+    const updateOnline = () => {
+      const isOnline = navigator.onLine;
+      setOnline(isOnline);
+      if (onOnlineStatusChange) {
+        onOnlineStatusChange(isOnline);
+      }
+    };
     updateOnline();
     window.addEventListener("online", updateOnline);
     window.addEventListener("offline", updateOnline);
@@ -25,7 +35,7 @@ export default function LCARSInfoPanel() {
       window.removeEventListener("online", updateOnline);
       window.removeEventListener("offline", updateOnline);
     };
-  }, []);
+  }, [onOnlineStatusChange]);
 
   useEffect(() => {
     // Fetch hostname from the Next.js API route
