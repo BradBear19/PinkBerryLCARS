@@ -31,6 +31,7 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
       });
   }, []);
 
+ 
 
   return (
     <>
@@ -47,20 +48,17 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
           >
             Home
           </button>
-          <button className="tLBButton" 
-            onClick={() => {
-              setCurrentBar("defualt");
-              playBeep();
-            }}>
-            Back
+          <button className="tLBButton">
           </button>
         </div>
 
         <div className="topRightSec">
-          <div className="mainSec">
-            <div className="sysInfo">
-              <LCARSInfoPanel onOnlineStatusChange={setIsOnline} />
-            </div>
+           <div className="mainSec">
+              <div className="sysInfo">
+                <div className="info-box">
+                  <LCARSInfoPanel onOnlineStatusChange={setIsOnline} />
+                </div>
+              </div>
             <div className="roundingTCube" />
             <div className="roundingTCube1" />
           </div>
@@ -69,12 +67,12 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             <div className="b1T" />
             <div className="b2T" />
             <div className="b3T" />
-            <div className="b4T">
-              {/* Element that pulls the hostname from Next.js API route */}
+            <div className="b4T" />
+            {/* Element that pulls the hostname from Next.js API route */}
               {/* Should have background color matching background to visually cut the box */}
               <p>
                 {hostname}
-              </p></div>
+              </p>
           </div>
         </div>
       </div>
