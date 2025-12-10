@@ -67,12 +67,13 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             <div className="b1T" />
             <div className="b2T" />
             <div className="b3T" />
-            <div className="b4T" />
-            {/* Element that pulls the hostname from Next.js API route */}
+            <div className="b4T">
+              {/* Element that pulls the hostname from Next.js API route */}
               {/* Should have background color matching background to visually cut the box */}
               <p>
                 {hostname}
               </p>
+            </div>
           </div>
         </div>
       </div>
