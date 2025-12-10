@@ -59,12 +59,12 @@ export default function LCARSInfoPanel({ onOnlineStatusChange }: LCARSInfoPanelP
   }, []);
 
   return (
-    <div>
-      {/* Status displays */}
-      <div>Hostname: {host}</div>
-      <div>{dateString}</div>
-      <div>Time: {time}</div>
-      <div>Online Status: {online ? "online" : "offline"}</div>
-    </div>
+    <>
+      {/* Status displays - each item given a class for vertical layout */}
+      <div className="info-item">Hostname: {host}</div>
+      <div className="info-item">{dateString}</div>
+      <div className="info-item">Time: {time}</div>
+      <div className="info-item">Online Status: {online ? "online" : "offline"}</div>
+    </>
   );
 }

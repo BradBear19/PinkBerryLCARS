@@ -77,11 +77,15 @@ import { LcarsDeleteModal, LcarsFileCreateModal } from "./LCARSModal"; // see pr
 export const HomePanel = () => (
   <div className="panel fade-in">
     <h1>Home Screen</h1>
+    <div className="vertical-barRight">
+    <div className = "vertical-barLeft">
     <div className="home-body">
       <p><strong>Welcome User</strong></p>
       <div className = "backgroundImage">
       <img src = "Starfleet.png" width = "348"  height = "348" alt = "img file"></img>
-      </div>
+    </div>
+    </div>
+    </div>
     </div>
   </div>
 );
@@ -768,7 +772,7 @@ export function BotBarCopy({
   const [fileForCopy, setFileForCopy] = useState(selectedPath);
 
   const executePaste = () => {
-  const target = selectedPath;
+  const target = selectedPath; // use the value directly
   const url = `/api/copyFile?sourceDir=${encodeURIComponent(fileForCopy)}&targetDir=${encodeURIComponent(target)}`;
   
   fetch(url)
