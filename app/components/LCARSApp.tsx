@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode, useEffect } from "react";
 import { 
   AboutSystemPanel,
   HomePanel,
@@ -19,6 +19,17 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
   const [currentBar, setCurrentBar] = useState("defualt");
   const [selectedPath, setSelectedPath] = useState(""); // initial path
   const [isOnline, setIsOnline] = useState(true);
+  const [hostname, setHostname] = useState("");
+
+  useEffect(() => {
+    fetch("/api/sysInfo?type=hostname")
+      .then((res) => res.json())
+      .then((data) => setHostname(data.hostname))
+      .catch((err) => {
+        console.error("Failed to fetch hostname:", err);
+        setHostname("Unknown");
+      });
+  }, []);
 
 
   return (
@@ -58,7 +69,12 @@ export default function LCARSLayout({ children }: { children: ReactNode }) {
             <div className="b1T" />
             <div className="b2T" />
             <div className="b3T" />
-            <div className="b4T" />
+            <div className="b4T">
+              {/* Element that pulls the hostname from Next.js API route */}
+              {/* Should have background color matching background to visually cut the box */}
+              <p>
+                {hostname}
+              </p></div>
           </div>
         </div>
       </div>
