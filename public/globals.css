@@ -183,6 +183,18 @@ button:hover {
     flex: 1;
 }
 
+.b4T p {
+    color: rgb(172, 115, 236);
+    background-color: #111;
+    height: 100%;
+    margin: auto;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
 /* Top and bottom bar color + height definitions */
 .b1T { background-color: rgb(68, 85, 255); height: 100%;}
 .b1B { background-color: rgb(221, 68, 68); height: 100%;}
