@@ -8,6 +8,11 @@ const exec = promisify(_exec);
 export default async function handler(req, res) {
   const { type } = req.query;
 
+  if (type === "hostname") {
+    res.status(200).json({ hostname: os.hostname() });
+    return;
+  }
+
   if (type === "sysInfo") {
     const networks = os.networkInterfaces();
     let primaryNetwork = null;
